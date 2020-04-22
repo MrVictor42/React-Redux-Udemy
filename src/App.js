@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Victor from './Victor';
 
 class App extends Component {
 
@@ -9,11 +7,13 @@ class App extends Component {
 		super(props)
 	
 		this.state = {
-			name: 'Victor'
+			name: 'Victor',
+			email: 'victor.mota@gmail.com'
 		}
 
 		this.changeState = this.changeState.bind(this);
 		this.resetState = this.resetState.bind(this);
+		this.changeInput = this.changeInput.bind(this);
 	}
 
 	changeState() {
@@ -24,11 +24,34 @@ class App extends Component {
 		this.setState({ name: 'Victor' });
 	}
 
+	changeInput(event) {
+		let target = event.target;
+		let index = target.name;
+		this.setState({ [index]: target.value })
+	}
+
 	render() {
 		return (
 			<div className="App">
 				<div>
-					{ this.state.name }
+					<form>
+						<label> Nome: 
+							<input 
+								type = 'text' 
+								name = 'name' 
+								value = { this.state.name } 
+								onChange = { this.changeInput }/>
+						</label>
+						<label> Email:
+							<input 
+								type = 'email' 
+								name = 'email' 
+								value = { this.state.email }
+								onChange = { this.changeInput }
+								/>
+						</label>
+					</form>
+					{ this.state.name } -> { this.state.email }
 				</div>
 				<button onClick = { this.changeState }> Mudar Estado </button>
 				<button onClick = { this.resetState }> Reset Estado </button>
